@@ -2,6 +2,7 @@ package com.assinatura;
 
 import java.io.FileInputStream;
 import java.security.KeyStore;
+import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
 
 public class KeyFile {
@@ -9,6 +10,7 @@ public class KeyFile {
     private char[] password;
 
     private String cn = "";
+    private PrivateKey pk = null;
 
     public KeyFile(String path, String password) {
         this.path = path;
@@ -25,6 +27,7 @@ public class KeyFile {
             if(keystore.getCertificate(alias).getType().equals("X.509")){
                 String dn = ((X509Certificate)  keystore.getCertificate(alias)).getSubjectDN().toString();
                 this.cn = dn.replaceAll(".*CN=|,.*", "");
+                this.pk = (PrivateKey) keystore.getKey(alias, this.password);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -32,7 +35,11 @@ public class KeyFile {
     }
 
     public String getCn() {
-        return cn;
+        return this.cn;
+    }
+
+    public PrivateKey getPk() {
+        return this.pk;
     }
 }
 

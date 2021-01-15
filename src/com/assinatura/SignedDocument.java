@@ -8,9 +8,9 @@ public class SignedDocument {
     private final String fileName = "DocSigned.txt";
 
     private String documentName = "";
-    private String documentBase64Data = "";
+    private String base64FileData = "";
 
-    private String certificateBase64Data = "";
+    private String base64Signature = "";
     private String certificateCommonName = "";
 
     public void writeFile() {
@@ -47,10 +47,10 @@ public class SignedDocument {
                 .concat("hash:SHA1\n")
                 .concat("assinante:" + this.certificateCommonName + "\n\n")
                 .concat("-----BEGIN DOC-----\n")
-                .concat(this.documentBase64Data + "\n")
+                .concat(this.base64FileData + "\n")
                 .concat("-----END DOC-----\n")
                 .concat("-----BEGIN SIGNATURE-----\n")
-                .concat(this.certificateBase64Data + "\n")
+                .concat(this.base64Signature + "\n")
                 .concat("-----END SIGNATURE-----\n")
                 .concat("-----END DOCSIGNED-----\n");
 
@@ -65,11 +65,11 @@ public class SignedDocument {
         this.certificateCommonName = certificateCommonName;
     }
 
-    public void setDocumentBase64Data(String documentBase64Data) {
-        this.documentBase64Data = documentBase64Data;
+    public void setBase64FileData(String base64FileData) {
+        this.base64FileData = base64FileData;
     }
 
-    public void setCertificateBase64Data(String certificateBase64Data) {
-        this.certificateBase64Data = certificateBase64Data;
+    public void setBase64Signature(String base64Signature) {
+        this.base64Signature = base64Signature;
     }
 }
